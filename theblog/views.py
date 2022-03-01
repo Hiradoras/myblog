@@ -9,6 +9,7 @@ from .forms import PostForm, EditForm
 class HomeView(ListView):
     model = Post # this Post is the object that we can use in html. 
     template_name = 'home.html'
+    ordering = ['-post_date']
     # ordering = ['-id']
 
 
