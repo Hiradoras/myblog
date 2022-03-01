@@ -5,14 +5,20 @@
 {% endblock title %}
 
 {% block content %}
-<div class="form-group">
-    <h1>Add Post</h1>
-    <br/><br/>
 
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p}}
-        <button  class="btn btn-secondary">Post</button>
-</div>
+{% if user.is_authenticated %}
+    <div class="form-group">
+        <h1>Add Post</h1>
+        <br/><br/>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button  class="btn btn-secondary">Post</button>
+    </div>
+{% else %}
+    You are not logged in
+{% endif %}
+
 {% endblock content %}
 
