@@ -1,9 +1,9 @@
-from dataclasses import fields
+from dataclasses import field, fields
 from re import template
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post
+from .models import Category, Post
 from .forms import PostForm, EditForm
 
 class HomeView(ListView):
@@ -24,6 +24,13 @@ class AddPostView(CreateView):
     template_name = 'add_post.html'
     # fields = '__all__'
     # fields = ('title', 'body') # We don't need to declare fields to use because form.py do this.
+
+class AddCategoryView(CreateView):
+    model = Category
+     template_name = 'add_category.html'
+    fields = "__all__"
+
+
 
 class UpdatePostView(UpdateView):
     model = Post
