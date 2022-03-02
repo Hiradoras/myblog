@@ -1,5 +1,6 @@
 from dataclasses import field, fields
 from re import template
+from unicodedata import category
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -11,6 +12,10 @@ class HomeView(ListView):
     template_name = 'home.html'
     ordering = ['-post_date']
     # ordering = ['-id']
+
+def CategoryView(request, cats):
+    category_posts = Post.objects.filter(category=cats)
+    return render(request, 'categories.html',{'cats':cats, "category_posts":category_posts})
 
 
 class ArticleDetailView(DetailView):
@@ -27,7 +32,7 @@ class AddPostView(CreateView):
 
 class AddCategoryView(CreateView):
     model = Category
-     template_name = 'add_category.html'
+    template_name = 'add_category.html'
     fields = "__all__"
 
 

@@ -2,10 +2,11 @@
 
 
 {% block content %}
-    <h1>Posts</h1>
+<h1>{{cats}} Category</h1>
 
+{% if category_posts %}
     <ul>
-    {% for post in object_list %} <!--This object_list is the object that comes from the views.py with model = Post-->
+        {% for post in category_posts %}
         <li><a href="{% url 'article-detail' post.pk %}">
             {{post.title}}</a> - {{post.author}} /
         {{post.author.first_name}} {{post.author.last_name}} - 
@@ -18,10 +19,13 @@
         <br/>
         {{post.body|slice:":200"|safe}} . . .</li>
         <br/>
-        <a href = "{% url 'category' post.category %}">{{post.category}}</a>
-        <br/><br/>
-    {% endfor %}
+        {% endfor %}
     </ul>
+{% else %}
+ No post with that category
+{% endif %}
+
+
 
 {% endblock content %}
 
