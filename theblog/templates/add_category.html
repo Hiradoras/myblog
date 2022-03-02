@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Add Category
+{% endblock title %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+    <div class="form-group">
+        <h1>Add Category</h1>
+        <br/><br/>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <button  class="btn btn-secondary">Add</button>
+    </div>
+{% else %}
+    You are not logged in
+{% endif %}
+
+{% endblock content %}
+
