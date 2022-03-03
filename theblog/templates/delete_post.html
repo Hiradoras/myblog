@@ -5,16 +5,17 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <div class='form-group'>
-        <h3>Delete: {{post.title}}</h3>
-            <br/><br/> 
-            <form method="POST">
-            {% csrf_token %}
-            <strong>Are you sure?</strong><br/><br/>
-            <button class="btn btn-danger">Delete</button>  {% comment %} <a href="{% url 'article-detail' post.pk %}" class='btn btn-info'>Cancel</a> {% endcomment %}
-            
-    </div>
-
+    {% if user.id == post.author.id %}
+        <div class='form-group'>
+            <h3>Delete: {{post.title}}</h3>
+                <br/><br/> 
+                <form method="POST">
+                {% csrf_token %}
+                <strong>Are you sure?</strong><br/><br/>
+                <button class="btn btn-danger">Delete</button>  {% comment %} <a href="{% url 'article-detail' post.pk %}" class='btn btn-info'>Cancel</a> {% endcomment %}
+                
+        </div>
+    {% endif %}
 {% else %}
 You are not logged in
 
