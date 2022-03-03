@@ -16,6 +16,12 @@
             {{ form.as_p}}
             <button  class="btn btn-secondary">Post</button>
     </div>
+
+    <script>
+        var name = "{{user.id}}";
+        document.getElementById("elder").value = name;
+
+    </script>
 {% else %}
     You are not logged in
 {% endif %}
