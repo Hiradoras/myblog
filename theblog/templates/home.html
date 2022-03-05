@@ -19,7 +19,7 @@
             {% endif %}
         </small>
         <br/>
-        {{post.body|slice:":200"|safe}} . . .</li>
+        {{post.snippet}}<a href="{% url 'article-detail' post.pk %}">. . .</a></li>
         <br/>
         <a href = "{% url 'category' post.category|slugify %}">{{post.category}}</a>
         <br/><br/>
