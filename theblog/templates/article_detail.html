@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block title %}
     {{post.title_tag}}
 {% endblock title %}
@@ -14,7 +13,7 @@
     <hr>
     <br/>
     {% if post.header_image %}
-        <img src='{{post.header_image.url}}'>
+        <img style="width:auto; height:300px" src='{{post.header_image.url}}'>
     {% endif %}
     {{post.body|safe}}
     <br/><br/><a href="{% url 'home' %}" class="btn btn-secondary">Back</a> 
