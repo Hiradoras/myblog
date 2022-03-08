@@ -1,4 +1,5 @@
 from cProfile import Profile
+from dataclasses import field
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView
 from django.views import generic
@@ -7,6 +8,23 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
 from members.forms import EditProfileForm, PasswordChangingForm, SignUpForm
 from theblog.models import Profile
+
+
+class EditProfilePage(generic.UpdateView):
+    model =Profile
+    template_name = 'registration/edit_profile_page.html'
+    fields = [
+        'bio',
+        'profile_pic',
+        'website_url',
+        'facebook_url',
+        'twitter_url',
+        'instagram_url',
+        'pinterest_url'
+        ]
+    success_url = reverse_lazy('home')
+
+
 
 class ShowProfilePageView(DetailView):
     model = Profile
@@ -44,3 +62,4 @@ class UserEditView(generic.UpdateView):
 
     def get_object(self):
         return self.request.user
+
