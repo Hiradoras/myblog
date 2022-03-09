@@ -1,13 +1,29 @@
 from cProfile import Profile
-from dataclasses import field
+from dataclasses import field, fields
+from re import template
 from django.shortcuts import get_object_or_404, render
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 from django.views import generic
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.urls import reverse_lazy
 from django.contrib.auth.views import PasswordChangeView
-from members.forms import EditProfileForm, PasswordChangingForm, SignUpForm
+from members.forms import EditProfileForm, PasswordChangingForm, ProfilePageForm, SignUpForm
 from theblog.models import Profile
+
+
+
+class CreateProfilePageView(CreateView):
+    model = Profile
+    form_class = ProfilePageForm
+    template_name = 'registration/create_user_profile.html'
+
+    # If you use form_class you can not use fields = "__all__". It will cause 'form_class is not permitted' error.
+    # fields = '__all__'
+
+    # This will pass the user to the form. So we can know which user is creating the profile.
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class EditProfilePage(generic.UpdateView):
