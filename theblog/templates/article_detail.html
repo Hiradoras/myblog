@@ -24,10 +24,7 @@
             <a href="{% url 'delete-post' post.pk %}" class="btn btn-danger">Delete</a> 
         {% endif %} 
     {% endif %}
-
-    <br/><br/>
     <hr/>
-    <br/>
     <form action="{% url 'like-post' post.pk %}" method = "POST">
         {% csrf_token %}
         {% if user.is_authenticated %}
@@ -41,26 +38,8 @@
         {% endif %}
         /
         {{total_likes}} Likes
-<br/><br/>
 <hr>
-<h2>Comments</h2>
-<br/>
-{% if not post.comments.all %}
-        No comments yet, <a href="#">
-            add one</a>
-{% else %}
 
-    {% for comment in post.comments.all %}
-            <strong>{{comment.name}} - {{comment.date_added}}</strong>
-            <br/>
-            {{comment.body}}
-            <br/><br/>
-            <hr>
-    {% endfor %}
-    
-{% endif %}
-
-<br/><br/>
 <div class="card mb-3">
     <div class="row g-0">
       <div class="col-md-2">
@@ -110,5 +89,28 @@
       </div>
     </div>
   </div>
+
+  <br/><br/>
+
+  <h2>Comments</h2>
+<br/>
+{% if not post.comments.all %}
+        No comments yet, <a href="{% url 'add_comment' post.pk %}">add one</a>
+{% else %}
+<a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+<br/><br/>
+
+    {% for comment in post.comments.all %}
+            <strong>{{comment.name}} - {{comment.date_added}}</strong>
+            <br/>
+            {{comment.body}}
+            <br/><br/>
+            <hr>
+            
+    {% endfor %}
+    <a href="{% url 'add_comment' post.pk %}">Add Comment</a>
+<br/><br/>
+    
+{% endif %}
 
 {% endblock content %}

@@ -1,7 +1,7 @@
 from email import header
 from random import choice
 from django import forms
-from .models import Post, Category
+from .models import Post, Category, Comment
 
 # You can hardcode it like that but it's not dynamic
 # choices = [('coding', 'coding'), ("sports","sports"), ('entertainment','entertainment')]
@@ -39,5 +39,14 @@ class EditForm(forms.ModelForm):
             'snippet' : forms.Textarea(attrs={'class':'form-control'}),
             'category' : forms.Select(choices = choice_list,  attrs={'class' : 'form-control'}),
 
+        }
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name','body')
+        widgets = {
+            'name' : forms.TextInput(attrs={'class' : 'form-control'}),
+            'body' : forms.Textarea(attrs={'class' : 'form-control'}),
         }
 
