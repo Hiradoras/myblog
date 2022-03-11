@@ -52,6 +52,7 @@ def CategoryView(request, cats):
 class ArticleDetailView(DetailView):
     model = Post
     template_name = 'article_detail.html'
+    ordering = ['date_added']
 
     def get_context_data(self,*args, **kwargs):
         cat_menu = Category.objects.all()
@@ -81,11 +82,17 @@ class AddPostView(CreateView):
 class AddCommentView(CreateView):
     model = Comment
     form_class = CommentForm
+    
     template_name = 'add_comment.html'
     # fields= "__all__"
 
     def form_valid(self, form):
         form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+        
+    def form_valid(self, form):
+        form.instance.user = self.request.user
         return super().form_valid(form)
     
     success_url = reverse_lazy('home')
